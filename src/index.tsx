@@ -7,6 +7,9 @@ import { UpdatePassword } from './page/update_password/UpdatePassword';
 import { ErrorPage } from './page/error/ErrorPage';
 import { Index } from './page/index/index';
 import { UpdateInfo } from './page/update_info/UpdateInfo';
+import { ModifyMenu } from './page/ModifyMenu/ModifyMenu';
+import { InfoModify } from './page/InfoModify/InfoModify';
+import { PasswordModify } from './page/PasswordModify/PasswordModify';
 
 const routes = [
   {
@@ -18,6 +21,21 @@ const routes = [
         path: 'update_info',
         element: <UpdateInfo/>
       },
+      {
+        path: "/user",
+        element: <ModifyMenu></ModifyMenu>,
+        children: [
+          {
+            path: 'info_modify',
+            element: <InfoModify/>
+          },
+          {
+            path: 'password_modify',
+            element: <PasswordModify/>
+          },
+        ]
+    },
+    
     ]
 },
   {
@@ -33,7 +51,7 @@ const routes = [
     element: <UpdatePassword />,
   }
 ];
-const router = createBrowserRouter(routes);
+export const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
