@@ -1,13 +1,19 @@
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { RouterProvider, createBrowserRouter, Link, Outlet } from 'react-router-dom';
-import { Register } from './page/register/Register';
-import { Login } from './page/login/Login';
-import { UpdatePassword } from './page/update_password/UpdatePassword';
-import { ErrorPage } from './page/error/ErrorPage';
-import { Index } from './page/index/index';
-import { UpdateInfo } from './page/update_info/UpdateInfo';
-
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  Link,
+  Outlet,
+} from "react-router-dom";
+import { Register } from "./page/register/Register";
+import { Login } from "./page/login/Login";
+import { UpdatePassword } from "./page/update_password/UpdatePassword";
+import { ErrorPage } from "./page/error/ErrorPage";
+import { Index } from "./page/index/index";
+import { UpdateInfo } from "./page/update_info/UpdateInfo";
+import { Menu } from './page/menu/Menu';
+import { UserManage } from './page/userManage/UserManage';
 const routes = [
   {
     path: "/",
@@ -15,11 +21,21 @@ const routes = [
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'update_info',
-        element: <UpdateInfo/>
+        path: "update_info",
+        element: <UpdateInfo />,
       },
-    ]
-},
+      {
+        path: "/",
+        element: <Menu></Menu>,
+        children: [
+          {
+            path: 'user_manage',
+            element: <UserManage/>
+          }
+        ]
+      }
+    ],
+  },
   {
     path: "login",
     element: <Login />,
@@ -31,13 +47,12 @@ const routes = [
   {
     path: "update_password",
     element: <UpdatePassword />,
-  }
+  },
 ];
 const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 
-root.render(<RouterProvider router={router}/>);
-
+root.render(<RouterProvider router={router} />);
