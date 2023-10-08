@@ -17,7 +17,8 @@ import { UserManage } from './page/userManage/UserManage';
 import { MeetingRoomManage} from './page/meetingRoomManage/MeetingRoomManage';
 import { BookingManage } from './page/bookingManage/BookingManage';
 import { Statistics } from './page/statistics/Statistics';
-
+import { MeetingRoomList } from './page/meeting_room_list/MeetingRoomList';
+import { BookingHistory } from './page/booking_history/BookingHistory';
 const routes = [
   {
     path: "/",
@@ -51,6 +52,14 @@ const routes = [
         {
             path: 'statistics',
             element: <Statistics/>
+        },
+        {
+          path: 'meeting_room_list',
+          element: <MeetingRoomList/>
+        },
+        {
+          path: 'booking_history',
+          element: <BookingHistory/>
         }
         ]
       }

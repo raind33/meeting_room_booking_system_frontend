@@ -27,3 +27,15 @@ export async function updateMeetingRoom(meetingRoom: UpdateMeetingRoom) {
 export async function findMeetingRoom(id: number) {
   return await axiosInstance.get('/meeting-room/' + id);
 }
+
+export async function searchMeetingRoomList(name: string, capacity: number, equipment: string, pageNo: number, pageSize: number) {
+  return await axiosInstance.get('/meeting-room/list', {
+      params: {
+          name,
+          capacity,
+          equipment,
+          pageNo,
+          pageSize
+      }
+  });
+}
