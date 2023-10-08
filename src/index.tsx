@@ -14,6 +14,10 @@ import { Index } from "./page/index/index";
 import { UpdateInfo } from "./page/update_info/UpdateInfo";
 import { Menu } from './page/menu/Menu';
 import { UserManage } from './page/userManage/UserManage';
+import { MeetingRoomManage} from './page/meetingRoomManage/MeetingRoomManage';
+import { BookingManage } from './page/bookingManage/BookingManage';
+import { Statistics } from './page/statistics/Statistics';
+
 const routes = [
   {
     path: "/",
@@ -29,9 +33,25 @@ const routes = [
         element: <Menu></Menu>,
         children: [
           {
+            path: '/',
+            element: <MeetingRoomManage/>
+        },
+          {
             path: 'user_manage',
             element: <UserManage/>
-          }
+          },
+          {
+            path: 'meeting_room_manage',
+            element: <MeetingRoomManage/>
+        },
+        {
+            path: 'booking_manage',
+            element: <BookingManage/>
+        },
+        {
+            path: 'statistics',
+            element: <Statistics/>
+        }
         ]
       }
     ],
