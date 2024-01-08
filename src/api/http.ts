@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 export const axiosInstance = axios.create({
     baseURL: 'http://localhost:3001/',
-    timeout: 3000
+    timeout: 9000
 });
 
 axiosInstance.interceptors.request.use(function (config) {
@@ -27,6 +27,7 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     async (error) => {
+        debugger
         let { data, config } = error.response;
 
         if(refreshing) {

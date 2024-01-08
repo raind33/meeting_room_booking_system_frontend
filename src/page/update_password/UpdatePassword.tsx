@@ -37,7 +37,11 @@ export function UpdatePassword() {
               console.log(data);
           }
       }
-      query();
+      const isLogin = localStorage.getItem('access_token');
+      if(isLogin) {
+
+          query();
+      }
   }, []);
     const onFinish = useCallback(async (values: UpdatePassword) => {
       if(values.password !== values.confirmPassword) {
@@ -65,6 +69,7 @@ export function UpdatePassword() {
       }
   
       const res = await updatePasswordCaptcha(address);
+      debugger
       if(res.status === 201 || res.status === 200) {
           message.success(res.data.data);
       } else {

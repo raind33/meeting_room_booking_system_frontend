@@ -10,7 +10,7 @@ interface SearchUser {
   email: string;
 }
 
-interface UserSearchResult {
+export interface UserSearchResult {
   id: number;
   username: string;
   nickName: string;
