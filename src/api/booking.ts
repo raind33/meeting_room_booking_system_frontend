@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { axiosInstance } from "./http";
 import { SearchBooking } from '@/page/bookingManage/BookingManage';
+import { CreateBooking } from '@/page/meeting_room_list/CreateBookingModal';
 
 export async function bookingList(searchBooking: SearchBooking, pageNo: number, pageSize: number) {
 
@@ -18,7 +19,7 @@ export async function bookingList(searchBooking: SearchBooking, pageNo: number, 
       const rangeEndTimeStr = dayjs(searchBooking.rangeEndTime).format('HH:mm');
       bookingTimeRangeEnd = dayjs(rangeEndDateStr + ' ' + rangeEndTimeStr).valueOf()
   }
-
+  console.log(typeof bookingTimeRangeStart);
   return await axiosInstance.get('/booking/list', {
       params: {
           username: searchBooking.username,
@@ -43,3 +44,20 @@ export async function reject(id: number) {
 export async function unbind(id: number) {
   return await axiosInstance.get('/booking/unbind/' + id);
 }
+export async function bookingAdd(booking: CreateBooking) {
+  const rangeStartDateStr = dayjs(booking.rangeStartDate).format('YYYY-MM-DD');
+  const rangeStartTimeStr = dayjs(booking.rangeStartTime).format('HH:mm');
+  const startTime = dayjs(rangeStartDateStr + ' ' + rangeStartTimeStr).valueOf()
+
+  const rangeEndDateStr = dayjs(booking.rangeEndDate).format('YYYY-MM-DD');
+  const rangeEndTimeStr = dayjs(booking.rangeEndTime).format('HH:mm');
+  const endTime = dayjs(rangeEndDateStr + ' ' + rangeEndTimeStr).valueOf()
+
+  return await axiosInstance.post('/booking/add', {
+      meetingRoomId: booking.meetingRoomId,
+      startTime,
+      endTime,
+      note: booking.note            
+  });
+}
+

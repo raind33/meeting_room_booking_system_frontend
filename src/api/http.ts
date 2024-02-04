@@ -2,7 +2,7 @@ import { message } from "antd";
 import axios, { AxiosRequestConfig } from 'axios';
 
 export const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3001/',
+    baseURL: 'http://localhost:3008/',
     timeout: 9000
 });
 
@@ -27,7 +27,6 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     async (error) => {
-        debugger
         let { data, config } = error.response;
 
         if(refreshing) {

@@ -69,7 +69,6 @@ export function UpdatePassword() {
       }
   
       const res = await updatePasswordCaptcha(address);
-      debugger
       if(res.status === 201 || res.status === 200) {
           message.success(res.data.data);
       } else {
