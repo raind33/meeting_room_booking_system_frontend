@@ -26,6 +26,7 @@ interface BookingSearchResult {
     createTime: string;
     updateTime: string;
     room: MeetingRoomSearchResult
+    description: string
 }
 
 function getUserInfo() {
