@@ -2,8 +2,8 @@ import { message } from "antd";
 import axios, { AxiosRequestConfig } from 'axios';
 
 export const axiosInstance = axios.create({
-    baseURL: 'http://localhost/api',
-    timeout: 9000
+    baseURL: 'http://rain-d.xyz/api',
+    timeout: 20000
 });
 
 axiosInstance.interceptors.request.use(function (config) {
