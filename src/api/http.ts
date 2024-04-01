@@ -2,7 +2,7 @@ import { message } from "antd";
 import axios, { AxiosRequestConfig } from 'axios';
 
 export const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3008/',
+    baseURL: 'http://localhost/api',
     timeout: 9000
 });
 
