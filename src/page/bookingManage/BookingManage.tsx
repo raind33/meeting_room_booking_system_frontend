@@ -37,6 +37,7 @@ interface BookingSearchResult {
   updateTime: string;
   user: UserSearchResult;
   room: MeetingRoomSearchResult;
+  description: string
 }
 
 export function BookingManage() {
