@@ -19,6 +19,8 @@ import { BookingManage } from './page/bookingManage/BookingManage';
 import { Statistics } from './page/statistics/Statistics';
 import { MeetingRoomList } from './page/meeting_room_list/MeetingRoomList';
 import { BookingHistory } from './page/booking_history/BookingHistory';
+import { CompressionImg } from './page/compressionImg/CompressionImg';
+
 const routes = [
   {
     path: "/",
@@ -64,6 +66,10 @@ const routes = [
         ]
       }
     ],
+  },
+  {
+    path: "compression",
+    element: <CompressionImg/>
   },
   {
     path: "login",
