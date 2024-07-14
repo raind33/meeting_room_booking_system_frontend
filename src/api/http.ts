@@ -2,7 +2,7 @@ import { message } from "antd";
 import axios, { AxiosRequestConfig } from "axios";
 
 export const axiosInstance = axios.create({
-    baseURL: 'http://rain-d.xyz/api',
+    baseURL: `${process.env.REACT_APP_API_URL}`,
     timeout: 20000
 });
 

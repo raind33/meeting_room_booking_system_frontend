@@ -6,6 +6,7 @@ import {
   Link,
   Outlet,
 } from "react-router-dom";
+import { ClickToComponent } from 'click-to-react-component';
 import { Register } from "./page/register/Register";
 import { Login } from "./page/login/Login";
 import { UpdatePassword } from "./page/update_password/UpdatePassword";
@@ -24,7 +25,7 @@ import { CompressionImg } from './page/compressionImg/CompressionImg';
 const routes = [
   {
     path: "/",
-    element: <Index></Index>,
+    element: <><ClickToComponent /><Index></Index></>,
     errorElement: <ErrorPage />,
     children: [
       {

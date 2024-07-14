@@ -18,3 +18,7 @@ export async function freeze(id: number) {
       }
   });
 }
+
+export async function presignedUrl(fileName: string) {
+  return axiosInstance.get(`/minio/presignedUrl?name=${fileName}`);
+}

@@ -4,36 +4,56 @@ import { useForm } from "antd/es/form/Form";
 import { useCallback, useEffect } from "react";
 import "./update_info.css";
 import { useNavigate } from "react-router-dom";
-import { getUserInfo, updateInfo, updateUserInfoCaptcha } from "../../api/login";
+import {
+  getUserInfo,
+  updateInfo,
+  updateUserInfoCaptcha,
+} from "../../api/login";
 import Dragger, { DraggerProps } from "antd/es/upload/Dragger";
+import { presignedUrl } from "@api/user";
+import axios from "axios";
 
 interface HeadPicUploadProps {
-    value?: string;
-    onChange?: Function
+  value?: string;
+  onChange?: Function;
 }
 
-let onChange: Function
+let onChange: Function;
 const props: DraggerProps = {
-    name: 'file',
-    action: 'http://localhost:3001/user/upload',
-    onChange(info) {
-        const { status } = info.file;
-        if (status === 'done') {
-            onChange(info.file.response.data)
-            message.success(`${info.file.name} 文件上传成功`);
-        } else if (status === 'error') {
-            message.error(`${info.file.name} 文件上传失败`);
-        }
+  name: "file",
+  action: async (file) => {
+    const res = await presignedUrl(file.name);
+    console.log(res.data.data);
+    return res.data.data;
+  },
+  async customRequest(options) {
+    const { onSuccess, file, action } = options;
+
+    const res = await axios.put(action, file);
+
+    onSuccess!(res.data);
+  },
+  onChange(info) {
+    const { status } = info.file;
+    if (status === "done") {
+      onChange(
+        "http://localhost:9000/meeting-room-booking-system/" + info.file.name
+      );
+      message.success(`${info.file.name} 文件上传成功`);
+    } else if (status === "error") {
+      message.error(`${info.file.name} 文件上传失败`);
     }
+  },
 };
 
-const dragger = <Dragger {...props}>
+const dragger = (
+  <Dragger {...props}>
     <p className="ant-upload-drag-icon">
-        <InboxOutlined />
+      <InboxOutlined />
     </p>
     <p className="ant-upload-text">点击或拖拽文件到这个区域来上传</p>
-</Dragger>
-
+  </Dragger>
+);
 
 export interface UserInfo {
   headPic: string;
@@ -48,17 +68,19 @@ const layout1 = {
 };
 interface HeadPicUploadProps {
   value?: string;
-  onChange?: Function
+  onChange?: Function;
 }
 
 export function HeadPicUpload(props: HeadPicUploadProps) {
-  onChange = props.onChange as Function
-  return props?.value ? <div>
-      <img src={'http://localhost:3001/' + props.value} alt="头像" width="100" height="100"/>
+  onChange = props.onChange as Function;
+  return props?.value ? (
+    <div>
+      <img src={props.value} alt="头像" width="100" height="100" />
       {dragger}
-  </div>: <div>
-  {dragger}
-  </div>
+    </div>
+  ) : (
+    <div>{dragger}</div>
+  );
 }
 
 export function UpdateInfo() {
@@ -68,18 +90,25 @@ export function UpdateInfo() {
   const onFinish = useCallback(async (values: UserInfo) => {
     const res = await updateInfo(values);
 
-    if(res.status === 201 || res.status === 200) {
-        const { message: msg, data} = res.data;
-        if(msg === 'success') {
-            message.success('用户信息更新成功');
-        } else {
-            message.error(data);
-        }
-    } else {
-        message.error('系统繁忙，请稍后再试');
-    }
-}, []);
+    if (res.status === 201 || res.status === 200) {
+      const { message: msg, data } = res.data;
+      if (msg === "success") {
+        message.success("用户信息更新成功");
+        const userInfo = localStorage.getItem("user_info");
+        if (userInfo) {
+          const info = JSON.parse(userInfo);
+          info.headPic = values.headPic;
+          info.nickName = values.nickName;
 
+          localStorage.setItem("user_info", JSON.stringify(info));
+        }
+      } else {
+        message.error(data);
+      }
+    } else {
+      message.error("系统繁忙，请稍后再试");
+    }
+  }, []);
 
   useEffect(() => {
     async function query() {
@@ -119,7 +148,7 @@ export function UpdateInfo() {
           name="headPic"
           rules={[{ required: true, message: "请输入头像!" }]}
         >
-          <HeadPicUpload/>
+          <HeadPicUpload />
         </Form.Item>
 
         <Form.Item

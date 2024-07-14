@@ -52,7 +52,7 @@ export function UserManage() {
       dataIndex: "headPic",
       render: (value) => {
         return value ? (
-          <Image width={50} src={`http://localhost:3001/${value}`} />
+          <Image width={50} src={`${process.env.REACT_APP_API_URL}/${value}`} />
         ) : (
           ""
         );
