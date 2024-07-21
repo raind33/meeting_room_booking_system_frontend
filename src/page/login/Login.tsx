@@ -75,7 +75,7 @@ export function Login() {
             <a
               href="#"
               onClick={() => {
-                window.location.href = "http://localhost:3005/user/google";
+                window.location.href = `${process.env.REACT_APP_API_URL}/user/google`
               }}
             >
               Google 账号登录
