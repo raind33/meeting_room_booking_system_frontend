@@ -37,7 +37,7 @@ const props: DraggerProps = {
     const { status } = info.file;
     if (status === "done") {
       onChange(
-        "http://localhost:9000/meeting-room-booking-system/" + info.file.name
+        "http://rain-d.xyz:9000/meeting-room-booking-system/" + info.file.name
       );
       message.success(`${info.file.name} 文件上传成功`);
     } else if (status === "error") {
